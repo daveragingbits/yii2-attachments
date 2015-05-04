@@ -69,4 +69,9 @@ class File extends ActiveRecord
     {
         return $this->getModule()->getFilesDirPath($this->hash) . DIRECTORY_SEPARATOR . $this->hash . '.' . $this->type;
     }
+
+    public function getParentModel()
+    {
+        return call_user_func( ['\\common\\models\\'.$this->model, 'findOne'], ['id' => $this->itemId] );
+    }
 }
