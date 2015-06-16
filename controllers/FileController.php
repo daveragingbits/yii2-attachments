@@ -51,6 +51,14 @@ class FileController extends Controller
         return \Yii::$app->response->sendFile($filePath, "$file->name.$file->type");
     }
 
+    public function actionView($id)
+    {
+        $file = File::findOne(['id' => $id]);
+        $filePath = $this->getModule()->getFilesDirPath($file->hash) . DIRECTORY_SEPARATOR . $file->hash . '.' . $file->type;
+
+        return \Yii::$app->response->sendFile($filePath, "$file->name.$file->type", ['inline' => true]);
+    }
+
     public function actionDelete($id)
     {
         $this->getModule()->detachFile($id);
