@@ -144,6 +144,10 @@ class Module extends \yii\base\Module
         $file->size = filesize($filePath);
         $file->type = $fileType;
         $file->mime = FileHelper::getMimeType($filePath);
+		
+		if( $file->hasAttribute('user_id') ) {
+			$file->user_id = Yii::$app->user->identity->id;
+		}
 
         if ($file->save()) {
             unlink($filePath);
